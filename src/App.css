@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App {
+    text-align: center;
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+/*    NAV BAR                */
+
+header {
+    background-color: red;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 75px;
+    position: relative;
+}
+
+nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 25px 60px 0 60px;
+}
+
+nav li {
+    list-style: none;
+    display: inline-block;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+nav a {
+    color: black;
+    padding: 5px;
+    background-color: white;
+    text-decoration: solid;
+}
+
+/*           HOME PAGE                 */
+.home {
+    font-family: 'Roboto', sans-serif;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.home-img {
+    width: 400;
+    height: 400;
+    margin-bottom: 50px;
+}
+
+/*           CART PAGE                 */
+
+.container-books {
+    max-width: 650px;
+    justify-content: space-around;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
+.book-header {
+    width: 100%;
+    max-width: 650px;
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 4px solid lightgray;
+    margin: 0 auto;
+}
+
+.book-title {
+    width: 45%;
+}
+
+.price {
+    width: 15%;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+}
+
+.quantity {
+    width: 30%;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+}
+
+.total {
+    width: 10%;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+}
+
+.product {
+    width: 45%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid lightgray;
+}
+
+/*            BOOK SEARCH               */
+.search-area {
+    max-width: 800px;
+    justify-content: space-around;
+    margin: 0 auto;
+    margin-top: 50px;
+    align-self: center;
+}
+
+.search-bar {
+    border: 2px solid red;
+    border-radius: 4px;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    background-color: white;
+    background-image: url(http://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/16/search-icon.png);
+    background-position: 10px 10px;
+    padding-left: 40px;
+    background-repeat: no-repeat;
+}
+
+.search-button {
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.search-button:hover {
+    background-color: lightgray;
+    color: black;
+}
+
+/*            CARD CONTAINER              */
+.card-container {
+    align-self: center;
+    justify-content: space-around;
+    margin: 50px;
+    float: left;
+    height: 250px;
+    width: 250px;
+    align-content: center;
+}
