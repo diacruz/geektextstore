@@ -171,6 +171,15 @@ nav a {
     color: black;
 }
 
+.sort-bar {
+    border: 2px solid lightgray;
+    height: 30px;
+    font-size: 12px;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+}
+
 /*            CARD CONTAINER              */
 .card-container {
     align-self: center;
