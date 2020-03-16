@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SearchArea from './SearchArea'
 import request from 'superagent'
 import BookList from './BookList'
+import SortBar from './SortBar'
 
 class Books extends Component {
     constructor(props) {
@@ -22,6 +23,11 @@ class Books extends Component {
                 const cleanData = this.cleanData(data)
                 this.setState({ books: cleanData })
             })
+    }
+
+    sortBooks = e => {
+        console.log(e.target.value);
+        //TODO: Fill this to sort books
     }
 
     handleSearch = e => {
@@ -63,6 +69,13 @@ class Books extends Component {
                     searchBook={this.searchBook}
                     handleSearch={this.handleSearch}
                 />
+                {
+                // The div below is used to create some space between the search button and the sort bar
+                }
+                <div>
+                &nbsp;
+                </div>
+                <SortBar sortBooks={this.sortBooks} />
                 <BookList books={this.state.books} />
             </div>
         )
