@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SearchArea from './SearchArea'
 import request from 'superagent'
 import BookList from './BookList'
+import SortBar from './SortBar'
 
 class Books extends Component {
     constructor(props) {
@@ -63,6 +64,8 @@ class Books extends Component {
                     searchBook={this.searchBook}
                     handleSearch={this.handleSearch}
                 />
+                <br></br>
+                <SortBar />
                 <BookList books={this.state.books} />
             </div>
         )
