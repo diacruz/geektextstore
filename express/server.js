@@ -7,7 +7,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-const MONGOURL = 'mongodb+srv://eduardo:eduardodally@geektext-ryapa.mongodb.net/test?retryWrites=true&w=majority'
+const MONGOURL = 'mongodb+srv://geektext:geektextstore@geektext-ryapa.mongodb.net/test?retryWrites=true&w=majority'
 
 
 mongoose.connect(MONGOURL, {
