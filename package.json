@@ -1,4 +1,7 @@
 {
+  "resolutions": {
+    "@turf/difference": "6.0.1"
+  },
   "name": "geek-text",
   "version": "0.1.0",
   "private": true,
