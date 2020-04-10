@@ -6,6 +6,7 @@ import CommentCard from '../CommentCard'
 import axios from 'axios'
 import { Typography, Paper } from '@material-ui/core'
 import Image from 'material-ui-image'
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     details: {
@@ -127,13 +128,37 @@ const BookDetails = props => {
                 <Paper elevation={3} className={classes.cover}>
                     <Image
                         aspectRatio={200 / 300}
-                        src={bookExample.volumeInfo.imageLinks.thumbnail}
+                        src={bookInfo.data.volumeInfo.imageLinks.thumbnail}
                     />
                 </Paper>
             )}
+            {/* {bookInfo && (
+                <div>
+                {bookInfo.data.volumeInfo.map((author, index) => {
+                  let booksByAuthor;
+                  if (index < book.authors.length - 1) {
+                    booksByAuthor = `${author.name}, `;
+                  } else {
+                    booksByAuthor = author.name;
+                  }
+                  return (
+                    <Link
+                      to={{
+                        pathname: `/AuthorInfo/${author._id}`,
+                        state: { author }
+                      }}
+                      style={{ color: "white" }}
+                      key={author.name}
+                    >
+                      {booksByAuthor}
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
             {commentDataMock.map(comment => (
                 <CommentCard key={comment.commentId} commentData={comment} />
-            ))}
+            ))} */}
         </div>
     )
 }
