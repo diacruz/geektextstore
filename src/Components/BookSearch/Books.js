@@ -11,6 +11,7 @@ class Books extends Component {
         this.state = {
             books: [],
             searchField: '',
+            sortfields: ''
         }
     }
 
@@ -29,7 +30,7 @@ class Books extends Component {
     }
 
     sortBooks = e => {
-      console.log(e.target.value);
+      this.state.sortfields = e.target.value;
     }
 
   //searchBook = e => {
@@ -76,7 +77,7 @@ class Books extends Component {
         return (
             <div>
                 <SortBar sortBooks={this.sortBooks} />
-                <BookList books={this.state.books} />
+                <BookList books={this.state} />
             </div>
         )
     }

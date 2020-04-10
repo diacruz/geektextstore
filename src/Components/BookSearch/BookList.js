@@ -6,13 +6,13 @@ const BookList = props => {
     let history = useHistory()
 
     const handleOpenDetails = id => () => history.push(`/book-details/${id}`)
-    
+    console.log(props)
     return (
         <div className="list">
-            {props.books.map((book, i) => {
+            {props.books.books.map((book, i) => {
                 if (book) {
                     console.log(book)
-
+                    
                     return (
                         <BookCard
                             openDetails={handleOpenDetails}
