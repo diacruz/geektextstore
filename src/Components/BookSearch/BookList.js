@@ -6,7 +6,7 @@ const BookList = props => {
     let history = useHistory()
 
     const handleOpenDetails = id => () => history.push(`/book-details/${id}`)
-
+    
     return (
         <div className="list">
             {props.books.map((book, i) => {
@@ -17,11 +17,11 @@ const BookList = props => {
                         <BookCard
                             openDetails={handleOpenDetails}
                             key={i}
-                            image={book.volumeInfo.imageLinks.thumbnail}
-                            title={book.volumeInfo.title}
-                            author={book.volumeInfo.authors}
-                            published={book.volumeInfo.publishedDate}
-                            bookId={book.id}
+                            image={book.thumbnailUrl}
+                            title={book.title}
+                            author={book.authors[0]}
+                            published={book.publishedDate}
+                            bookId={book._id}
                         />
                     )
                 }
