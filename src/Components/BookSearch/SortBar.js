@@ -15,16 +15,31 @@ function SortBar(props) {
                     <option value="published-date">Publish Date</option>
                     <option value="price">Price</option>
                 </select>
+                <select onChange={props.changeAsc}>
+                    <option value="asc">Asc</option>
+                    <option value="des">Des</option>
+                </select>
             </div>
             <div>
-                Genres: &nbsp;
-                <select id="rating" onChange={props.sortBooks}>
+                Rating: &nbsp;
+                <select id="rating" onChange={props.rating}>
                     <option value="null">-------</option>
-                    <option value="top-sellers">Top Sellers</option>
-                    <option value="action">Action</option>
-                    <option value="info">Informative</option>
-                    <option value="fiction">Fiction</option>
-                    <option value="rom">Romantic</option>
+                    <option value="one"> ⭐+</option>
+                    <option value="two"> ⭐⭐+</option>
+                    <option value="three"> ⭐⭐⭐+</option>
+                    <option value="fpur"> ⭐⭐⭐⭐+</option>
+                    <option value="five"> ⭐⭐⭐⭐⭐</option>
+                </select>
+            </div>
+            <div>
+                Filter By: &nbsp;
+                <select id="rating" onChange={props.filterBooks}>
+                    <option value="null">-------</option>
+                    <option value="top-seller">Top Sellers</option>
+                    <option value="Internet">Internet</option>
+                    <option value="Web Development">Web Dev</option>
+                    <option value="Java">Java</option>
+                    <option value="Miscellaneous">Misc</option>
                 </select>
             </div>
         </div>

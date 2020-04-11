@@ -12,6 +12,8 @@ const BookCard = props => {
     const { openDetails, image, title, author, published, bookId } = props
     const classes = useStyles()
 
+    //var date = published.substring(0,8);
+
     return (
         <div className="card-container">
             <img src={image} alt="" />

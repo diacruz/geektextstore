@@ -17,7 +17,7 @@ mongoose.connect(MONGOURL, {
 mongoose.connection.on('connected', () => {
     console.log('Mongoose is connected!!!');
 });
-
+ 
 const Schema = mongoose.Schema
 const BookSchema = new Schema(
     {
@@ -37,20 +37,17 @@ BookSchema.set('collection', 'geektext');
 const Book = mongoose.model('geektext', BookSchema);
 
 app.use("/", router); 
-
+ 
 app.get('/book', (req, res) => {
-    const data = {
-        title: "Test",
-        num: 2
-    };
-
+    console.log("Querying");
     Book.find({ })
         .then ((data) => {
+            console.log(data);
             res.json(data);
         })
         .catch((error) => {
             console.log(error);
         });
 });
- 
+
 app.listen(PORT, console.log(`Server is starting at ${PORT}`));
