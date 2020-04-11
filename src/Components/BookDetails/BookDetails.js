@@ -132,11 +132,11 @@ const BookDetails = props => {
                     />
                 </Paper>
             )}
-            {/* {bookInfo && (
+            {bookInfo && (
                 <div>
                 {bookInfo.data.volumeInfo.map((author, index) => {
                   let booksByAuthor;
-                  if (index < book.authors.length - 1) {
+                  if (index < bookInfo.data.authors.volumeInfo.length - 1) {
                     booksByAuthor = `${author.name}, `;
                   } else {
                     booksByAuthor = author.name;
@@ -158,7 +158,7 @@ const BookDetails = props => {
             )}
             {commentDataMock.map(comment => (
                 <CommentCard key={comment.commentId} commentData={comment} />
-            ))} */}
+            ))}
         </div>
     )
 }
