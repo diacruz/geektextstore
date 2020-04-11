@@ -9,15 +9,15 @@ function Navbar() {
                     <li>
                         <a href="home">Home</a>
                     </li>
-					
+
                     <li>
                         <a href="search">Search</a>
                     </li>
-					
-					<li>
+
+                    <li>
                         <a href="wishlist">Wishlist</a>
                     </li>
-					
+
                     <li>
                         <a href="cart">Cart</a>
                     </li>

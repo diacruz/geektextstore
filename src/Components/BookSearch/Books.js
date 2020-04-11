@@ -10,68 +10,30 @@ class Books extends Component {
         super(props)
         this.state = {
             books: [],
+            cartItems: [],
             searchField: '',
-            sortfields: ''
+            sortfields: '',
         }
     }
 
     componentDidMount = () => {
-        this.getBooks();
+        this.getBooks()
     }
 
     getBooks = () => {
-        axios.get('/book')
+        axios
+            .get('/book')
             .then((response) => {
-                this.setState({books: response.data})
+                this.setState({ books: response.data })
             })
             .catch((err) => {
-                console.log(err);
-            });
+                console.log(err)
+            })
     }
 
-    sortBooks = e => {
-      this.state.sortfields = e.target.value;
+    sortBooks = (e) => {
+        this.state.sortfields = e.target.value
     }
-
-  //searchBook = e => {
-  //    e.preventDefault()
-  //    request
-  //        .get('https://www.googleapis.com/books/v1/volumes')
-  //        .query({ q: this.state.searchField })
-  //        .then(data => {
-  //            console.log(data)
-  //            const cleanData = this.cleanData(data)
-  //            this.setState({ books: cleanData })
-  //        })
-  //}
-
-  //handleSearch = e => {
-  //    console.log(e.target.values)
-  //    this.setState({ searchField: e.target.value })
-  //}
-
-    //cleanData = data => {
-    //    const cleanedData = data.body.items.map(book => {
-    //        if (book.volumeInfo.hasOwnProperty('publishedDate') === false) {
-    //            book.volumeInfo['publishedDate'] = '0000'
-    //        } else if (
-    //            book.volumeInfo.hasOwnProperty('imageLinks') === undefined
-    //        ) {
-    //            book.volumeInfo['imageLinks'] = {
-    //                thumbnail:
-    //                    'https://edgeenvironment.com/wp-content/uploads/2016/05/no-image-available.jpg',
-    //            }
-    //        } else if (book.volumeInfo.hasOwnProperty('imageLinks') === false) {
-    //            book.volumeInfo['imageLinks'] = {
-    //                thumbnail:
-    //                    'https://edgeenvironment.com/wp-content/uploads/2016/05/no-image-available.jpg',
-    //            }
-    //        }
-//
-    //        return book
-    //    })
-    //    return cleanedData
-    //}
 
     render() {
         return (
