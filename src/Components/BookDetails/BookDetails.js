@@ -6,27 +6,7 @@ import CommentCard from '../CommentCard'
 import axios from 'axios'
 import { Typography, Paper } from '@material-ui/core'
 import Image from 'material-ui-image'
-import { Link } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
-    details: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-    },
-    author: {
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    bookTitle: { display: 'flex', flexDirection: 'column', color: '#666666' },
-    cover: {
-        margin: theme.spacing(1),
-        padding: theme.spacing(1),
-        width: '200px',
-        height: '300px',
-    },
-}))
 
 const commentDataMock = [
     {
@@ -131,30 +111,6 @@ const BookDetails = props => {
                         src={bookInfo.data.volumeInfo.imageLinks.thumbnail}
                     />
                 </Paper>
-            )}
-            {bookInfo && (
-                <div>
-                {bookInfo.data.volumeInfo.map((author, index) => {
-                  let booksByAuthor;
-                  if (index < bookInfo.data.authors.volumeInfo.length - 1) {
-                    booksByAuthor = `${author.name}, `;
-                  } else {
-                    booksByAuthor = author.name;
-                  }
-                  return (
-                    <Link
-                      to={{
-                        pathname: `/AuthorInfo/${author._id}`,
-                        state: { author }
-                      }}
-                      style={{ color: "white" }}
-                      key={author.name}
-                    >
-                      {booksByAuthor}
-                    </Link>
-                  );
-                })}
-              </div>
             )}
             {commentDataMock.map(comment => (
                 <CommentCard key={comment.commentId} commentData={comment} />

@@ -1,0 +1,20 @@
+.authorInfoCont {
+	padding: 0 3em 3em 4em;
+	min-width: 300px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.heading {
+	font-size: 1.25em;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.authorBioCont {
+	margin-top: 10px;
+	margin-bottom: 3px;
+	font-weight: bold;
+}
