@@ -6,7 +6,9 @@ class Wishlist extends Component {
     render() {
         return (
             <div>
-				<h2>Wishlist Container Example below: </h2>
+				<h1>Welcome to the Wishlist Page:</h1>
+                <h3>Please select the button below to create a list</h3>              
+
 				<WishlistContainer />
             </div>
         )
