@@ -24,11 +24,18 @@ function SortBar(props) {
                 Rating: &nbsp;
                 <select id="rating" onChange={props.rating}>
                     <option value="null">-------</option>
-                    <option value="one"> ⭐+</option>
-                    <option value="two"> ⭐⭐+</option>
-                    <option value="three"> ⭐⭐⭐+</option>
-                    <option value="fpur"> ⭐⭐⭐⭐+</option>
-                    <option value="five"> ⭐⭐⭐⭐⭐</option>
+                    <option value="one">⭐+</option>
+                    <option value="two">⭐⭐+</option>
+                    <option value="three">⭐⭐⭐+</option>
+                    <option value="four">⭐⭐⭐⭐+</option>
+                    <option value="five">⭐⭐⭐⭐⭐</option>
+                </select>
+            </div>
+            <div>
+                Books per page: &nbsp;
+                <select onChange={props.bpp}>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
                 </select>
             </div>
             <div>

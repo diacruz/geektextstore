@@ -13,7 +13,8 @@ class Books extends Component {
             sortfields: '',
             filterfields: '',
             order: '',
-            rating: ''
+            rating: '',
+            bookspp: ''
         }
     }
  
@@ -35,6 +36,10 @@ class Books extends Component {
         this.setState( {rating: e.target.value} )
     }
 
+    bpp = e => {
+        this.setState( {bookspp: e.target.value} );
+    }
+
     sortBooks = e => {
         this.setState({sortfields: e.target.value})
         console.log(this.state.sortfields);
@@ -52,7 +57,7 @@ class Books extends Component {
     render() {
         return (
             <div>
-                <SortBar sortBooks={this.sortBooks} filterBooks={this.filterBooks} changeAsc={this.changeAsc} rating={this.rating}/>
+                <SortBar sortBooks={this.sortBooks} filterBooks={this.filterBooks} changeAsc={this.changeAsc} rating={this.rating} bpp={this.bpp}/>
                 <BookList books={this.state} />
             </div>
         )

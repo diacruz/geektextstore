@@ -7,6 +7,13 @@ const BookList = props => {
 
     const handleOpenDetails = id => () => history.push(`/book-details/${id}`)
 
+    var bookspp = parseInt(props.books.bookspp);
+    
+    if (isNaN(bookspp))
+    {
+        bookspp = 10;
+    }
+
     var sortedBooks = props.books.books;
 
     var sorttitleasc = function (a, b) {
@@ -61,6 +68,22 @@ const BookList = props => {
         return 0;
     }
 
+    var sortpriceasc = function (a, b) {
+        a= a.price;
+        b= b.price;
+        if (a < b) return 1;
+        if (a > b) return -1;
+        return 0;
+    }
+
+    var sortpricedes = function (a, b) {  
+        a= a.price;
+        b= b.price;      
+        if (a < b) return -1;
+        if (a > b) return 1;
+        return 0;
+    }
+
     if (props.books.sortfields == "title")
     {
         if (props.books.order == "des") {
@@ -85,13 +108,23 @@ const BookList = props => {
             sortedBooks = sortedBooks.sort(sortdateasc)
         }
     }
+    else if (props.books.sortfields == "price")
+    {
+        if (props.books.order == "des") {
+            sortedBooks = sortedBooks.sort(sortpricedes);
+        } else {
+            sortedBooks = sortedBooks.sort(sortpriceasc)
+        }
+    }
 
+    var counter = 0;
 
     return (
         <div className="list">
             {
                 sortedBooks.map((book, i) => {
-                    if (book) {
+                    if (book && counter < bookspp) 
+                    {
                         var date = book.publishedDate + "";
                         date = date.substring(0, 10);
 
@@ -101,6 +134,7 @@ const BookList = props => {
 
                             if (book.categories[0] == props.books.filterfields || book.categories[1] == props.books.filterfields)
                             {
+                                counter++;
                                 return (
                                     <BookCard
                                         openDetails={handleOpenDetails}
@@ -110,12 +144,14 @@ const BookList = props => {
                                         author={book.authors[0]}
                                         published={date}
                                         bookId={book._id}
+                                        price={"$" + book.price}
                                     />
                                 )
                             }
                         } 
                         else
                         {
+                            counter++;
                             return (
                                 <BookCard
                                     openDetails={handleOpenDetails}
@@ -125,6 +161,7 @@ const BookList = props => {
                                     author={book.authors[0]}
                                     published={date}
                                     bookId={book._id}
+                                    price={"$" + book.price}
                                 />
                             )
                         }                   
