@@ -7,6 +7,25 @@ import axios from 'axios'
 import { Typography, Paper } from '@material-ui/core'
 import Image from 'material-ui-image'
 
+const useStyles = makeStyles(theme => ({
+    details: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+    },
+    author: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    bookTitle: { display: 'flex', flexDirection: 'column', color: '#666666' },
+    cover: {
+        margin: theme.spacing(1),
+        padding: theme.spacing(1),
+        width: '200px',
+        height: '300px',
+    },
+}))
 
 const commentDataMock = [
     {
