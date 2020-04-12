@@ -31,10 +31,12 @@ const BookSchema = new Schema(
         status: String,
         authors: Array,
         categories: Array,
-        price: Number
+        price: Number,
+        dummyrating: Number
     }
 );
 
+//BookSchema.add({dummyrating: Number});
 BookSchema.set('collection', 'books');
 const Book = mongoose.model('geektext', BookSchema);
 
@@ -53,29 +55,29 @@ app.get('/book', (req, res) => {
 
 app.get('/bruh', (req, res) => {
 
-    //var data;
-////
-    //Book.find({})
-    //    .then((d) => {
-    //        data = JSON.parse(JSON.stringify(d));
-    //        console.log("success");
-////
-    //        data.forEach(element => {
-    //            var amount = Math.round((Math.random() * 20) * 100) / 100;
-    //            console.log(amount);
-    //            Book.findByIdAndUpdate({"_id": element._id}, {"price": amount})
-    //                .then(() => {
-    //                    console.log("Book with id: " + element._id + " has")
-    //                });
-    //        });
-////
-////
-    //    });
+    var data;
+///
+    Book.find({})
+        .then((d) => {
+            data = JSON.parse(JSON.stringify(d));
+            console.log("success");
+///
+            data.forEach(element => {
+                var amount = Math.round((Math.random() * 5) * 10) / 10;
+                console.log(amount);
+                Book.findByIdAndUpdate({"_id": element._id}, {"dummyrating": amount})
+                    .then(() => {
+                        console.log("Book with id: " + element._id + " has dummyrating: " + amount);
+                    });
+            });
+///
+///
+        });
     
-    //Book.updateMany({}, {$set: {"price": 0}})
+    //Book.updateMany({}, {$set: {"dummyrating": 0}})
     //.then((data) => {
-    //    console.log(data)
-    //    console.log("Success")
+    //    console.log(data);
+    //    console.log("Success");
     //});
 });//
 
