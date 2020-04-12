@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import SearchArea from './SearchArea'
-import request from 'superagent'
 import BookList from './BookList'
 import SortBar from './SortBar'
 import axios from 'axios'
@@ -13,9 +12,15 @@ class Books extends Component {
             cartItems: [],
             searchField: '',
             sortfields: '',
+
+            filterfields: '',
+            order: '',
+            rating: '',
+            bookspp: ''
+
         }
     }
-
+ 
     componentDidMount = () => {
         this.getBooks()
     }
@@ -31,14 +36,33 @@ class Books extends Component {
             })
     }
 
-    sortBooks = (e) => {
+
+    rating = e => {
+        this.setState( {rating: e.target.value} )
+    }
+
+    bpp = e => {
+        this.setState( {bookspp: e.target.value} );
+    }
+
+     sortBooks = (e) => {
         this.state.sortfields = e.target.value
     }
 
+
+    filterBooks = e => {
+        this.setState({filterfields: e.target.value})
+        console.log(this.state.filterfields);
+    }
+
+    changeAsc = e => {
+        this.setState( {order: e.target.value} );
+    }
+    
     render() {
         return (
             <div>
-                <SortBar sortBooks={this.sortBooks} />
+                <SortBar sortBooks={this.sortBooks} filterBooks={this.filterBooks} changeAsc={this.changeAsc} rating={this.rating} bpp={this.bpp}/>
                 <BookList books={this.state} />
             </div>
         )
