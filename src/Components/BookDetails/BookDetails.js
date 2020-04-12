@@ -71,7 +71,6 @@ const reviewsMock = [
     },
 ]
 
-
 // const getUserReview = (reviews, userId) => {
 //     return reviews.find((review) => review.ownerId === userId)
 // }
@@ -222,22 +221,28 @@ const BookDetails = (props) => {
             {showReviewForm && (
                 <Card className={classes.reviewCard}>
                     <CardContent>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={reviewSignAs}
-                            onChange={handleReviewSignAsChange}
-                        >
-                            <MenuItem value={ReviewSignedAs.fullname}>
-                                Fullname
-                            </MenuItem>
-                            <MenuItem value={ReviewSignedAs.nickname}>
-                                Nickname
-                            </MenuItem>
-                            <MenuItem value={ReviewSignedAs.anonymous}>
-                                Anonymous
-                            </MenuItem>
-                        </Select>
+                        <Box style={{ display: 'flex', marginBottom: 16 }}>
+                            <Typography style={{ alignSelf: 'center' }}>
+                                Posting as: &nbsp;
+                            </Typography>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={reviewSignAs}
+                                onChange={handleReviewSignAsChange}
+                            >
+                                <MenuItem value={ReviewSignedAs.fullname}>
+                                    Fullname
+                                </MenuItem>
+                                <MenuItem value={ReviewSignedAs.nickname}>
+                                    Nickname
+                                </MenuItem>
+                                <MenuItem value={ReviewSignedAs.anonymous}>
+                                    Anonymous
+                                </MenuItem>
+                            </Select>
+                        </Box>
+
                         <TextField
                             className={classes.comment}
                             fullWidth
@@ -251,7 +256,12 @@ const BookDetails = (props) => {
                         ></Rating>
                     </CardContent>
                     <CardActions>
-                        <Button onClick={handleSubmit} size="small">
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleSubmit}
+                            size="small"
+                        >
                             Submit!
                         </Button>
                     </CardActions>
