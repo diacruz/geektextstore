@@ -34,9 +34,9 @@ function SortBar(props) {
             <div>
                 Books per page: &nbsp;
                 <select onChange={props.bpp}>
-                    <option value="1000">--</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
+                    <option value="1000">∞</option>
                 </select>
             </div>
             <div>
