@@ -9,28 +9,33 @@ class Books extends Component {
         super(props)
         this.state = {
             books: [],
+            cartItems: [],
             searchField: '',
             sortfields: '',
+
             filterfields: '',
             order: '',
             rating: '',
             bookspp: ''
+
         }
     }
  
     componentDidMount = () => {
-        this.getBooks();
+        this.getBooks()
     }
 
     getBooks = () => {
-        axios.get('/book')
+        axios
+            .get('/book')
             .then((response) => {
-                this.setState({books: response.data})
+                this.setState({ books: response.data })
             })
             .catch((err) => {
-                console.log(err);
-            });
+                console.log(err)
+            })
     }
+
 
     rating = e => {
         this.setState( {rating: e.target.value} )
@@ -40,10 +45,10 @@ class Books extends Component {
         this.setState( {bookspp: e.target.value} );
     }
 
-    sortBooks = e => {
-        this.setState({sortfields: e.target.value})
-        console.log(this.state.sortfields);
+     sortBooks = (e) => {
+        this.state.sortfields = e.target.value
     }
+
 
     filterBooks = e => {
         this.setState({filterfields: e.target.value})
@@ -53,7 +58,7 @@ class Books extends Component {
     changeAsc = e => {
         this.setState( {order: e.target.value} );
     }
-
+    
     render() {
         return (
             <div>

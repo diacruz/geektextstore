@@ -1,3 +1,4 @@
+
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -8,13 +9,13 @@ const PORT = process.env.PORT || 8080;
 const router = express.Router();
 const MONGOURL = 'mongodb+srv://geektext:geektextstore@geektext-ryapa.mongodb.net/geektext?retryWrites=true&w=majority'
 
-
 mongoose.connect(MONGOURL, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
-});
+    useUnifiedTopology: true,
+})
 
 mongoose.connection.on('connected', () => {
+  
     console.log('Mongoose is connected!!!');
 });
  
@@ -82,3 +83,4 @@ app.get('/bruh', (req, res) => {
 });//
 
 app.listen(PORT, console.log(`Server is starting at ${PORT}`));
+

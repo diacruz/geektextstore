@@ -18,9 +18,12 @@ class App extends Component {
                         <Route path="/" component={Home} exact />
                         <Route path="/home" component={Home} exact />
                         <Route path="/search" component={Books} exact />
-						<Route path="/wishlist" component={Wishlist} exact />
+                        <Route path="/wishlist" component={Wishlist} exact />
                         <Route path="/cart" component={Cart} exact />
-                        <Route path="/book-details/:id" component={BookDetails} />
+                        <Route
+                            path="/:id"
+                            component={BookDetails}
+                        />
                     </Switch>
                 </div>
             </BrowserRouter>
