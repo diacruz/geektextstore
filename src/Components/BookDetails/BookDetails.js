@@ -121,7 +121,7 @@ const BookDetails = (props) => {
         user.getPurchaseOfBook(book.id).then((up) => {
             console.log('user.getPurchaseOfBook', up)
             setUserPurchase(up)
-            if (up.purchased) {
+            if (up.purchased && up.hasReview) {
                 setBookReviews((prevList) => {
                     return [createDisplayedReview(up.review), ...prevList]
                 })
