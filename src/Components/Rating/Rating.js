@@ -2,7 +2,7 @@ import React from 'react'
 import RatingMUI from '@material-ui/lab/Rating'
 import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
@@ -13,11 +13,11 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function Rating(props) {
-    const { value } = props
+    const { value, readOnly, onChange } = props
     const classes = useStyles()
     return (
         <div className={classes.root}>
-            <RatingMUI name="read-only" value={value} readOnly />
+            <RatingMUI name="read-only" value={value} readOnly={readOnly} onChange={onChange} />
         </div>
     )
 }

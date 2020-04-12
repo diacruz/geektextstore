@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import AuthorInfo from '../AuthorInfo'
+import Rating from '../Rating'
 import { makeStyles } from '@material-ui/core/styles'
-import CommentCard from '../CommentCard'
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import ReviewCard from '../ReviewCard'
 import axios from 'axios'
-import { Typography, Paper } from '@material-ui/core'
+import { Typography, Paper, Box, TextField, Button } from '@material-ui/core'
+import { AppControlContext } from '../AppControlContext'
+import { ReviewSignedAs } from '../../AppControl'
+
 import Image from 'material-ui-image'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     details: {
         display: 'flex',
         flexDirection: 'row',
@@ -25,25 +32,38 @@ const useStyles = makeStyles(theme => ({
         width: '200px',
         height: '300px',
     },
+    reviewCard: {
+        width: '100%',
+        margin: theme.spacing(1),
+    },
+    comment: {
+        '& .MuiTextField-root': {
+            margin: theme.spacing(1),
+        },
+        padding: theme.spacing(2),
+    },
 }))
 
-const commentDataMock = [
+const reviewsMock = [
     {
+        ownerId: '1',
         owner: 'Joan of Arc',
-        commentId: '1678igjnu894u0',
-        text: 'great book!',
+        signedAs: ReviewSignedAs.fullname,
+        comment: 'great book!',
         rating: 4,
     },
     {
+        ownerId: '2',
         owner: 'Joan of Fire',
-        commentId: '1678igjnu894u1',
-        text: 'meh book!',
+        signedAs: ReviewSignedAs.fullname,
+        comment: 'meh book!',
         rating: 3,
     },
     {
+        ownerId: '3',
         owner: 'Joan of Water',
-        commentId: '1678igjnu894u2',
-        text: 'bad book!',
+        signedAs: ReviewSignedAs.fullname,
+        comment: 'bad book!',
         rating: 1,
     },
 ]
@@ -93,46 +113,172 @@ const bookExample = {
     },
 }
 
-const BookDetails = props => {
+const getUserReview = (reviews, userId) => {
+    return reviews.find((review) => review.ownerId === userId)
+}
+
+const BookDetails = (props) => {
+    const { history } = props
+    const { getCurrentUser, getBookById } = useContext(AppControlContext)
     const classes = useStyles()
-    const [bookInfo, setBookInfo] = useState()
+
+    const [user, setUser] = useState(null)
+    const [book, setBook] = useState(null)
+    const [userPurchase, setUserPurchase] = useState(null)
+    const [bookReviews, setBookReviews] = useState(reviewsMock)
+    const [showReviewForm, setShowReviewForm] = useState(false)
+    const [reviewComment, setReviewComment] = useState('')
+    const [reviewRating, setReviewRating] = useState(0)
 
     useEffect(() => {
+        // load the current user
+        getCurrentUser()
+            .then((u) => {
+                console.log('getCurrentUser', u)
+                setUser(u)
+            })
+            .catch((error) => {
+                if (error.code === 'UserNotFound') {
+                    history.push('/')
+                }
+            })
+
+        // load the selected book details
         const volId = window.location.href.split('/')[4]
-        axios
-            .get(`https://www.googleapis.com/books/v1/volumes/${volId}`)
-            .then(function(response) {
-                // handle success
-                setBookInfo(response)
-            })
-            .catch(function(error) {
-                // handle error
-                console.log(error)
-            })
+        console.log('volumeId', volId)
+        getBookById(volId).then((b) => {
+            console.log('getBookById', b)
+            setBook(b)
+        })
+
+        // setBookInfo(getBookById(volId).then((res) => ({ ...res, ...reviews })))
+        // console.log(bookInfo)
     }, [])
 
-    console.log('cakish', bookInfo)
+    useEffect(() => {
+        if (!user || !book) return
+        user.getPurchaseOfBook(book.id).then((up) => {
+            console.log('user.getPurchaseOfBook', up)
+            setUserPurchase(up)
+            if (up.purchased) {
+                setBookReviews((prevList) => {
+                    return [ 
+                        createDisplayedReview(up.review),
+                        ...prevList
+                    ]
+                })
+            }
+        })
+    }, [user, book])
+
+    const createDisplayedReview = (review) => {
+        let owner = ''
+        switch (review.signedAs) {
+            case ReviewSignedAs.fullname:
+                owner = user.name
+                break
+            case ReviewSignedAs.nickname:
+                owner = user.nickname
+                break
+            default:
+                owner = 'anonymous'
+                break
+        }
+        return {
+            ownerId: user.id,
+            owner,
+            signedAs: review.signedAs,
+            comment: review.comment,
+            rating: review.rating,
+        }
+    }
+
+    const handleWriteReview = () => {
+        setReviewComment(userPurchase.review.comment)
+        setReviewRating(userPurchase.review.rating)
+        setShowReviewForm(true)
+    }
+
+    const handleReviewCommentChange = (event) => {
+        const comment = event.target.value
+        setReviewComment(comment)
+    }
+    const handleReviewRatingChange = (event) => {
+        const rating = event.target.value
+        setReviewRating(rating)
+    }
+    const handleSubmit = () => {
+        userPurchase.setReview('', reviewComment, reviewRating)
+        userPurchase.saveChanges().then((up) => {
+            console.log('userPurchase.saveChanges', up)
+            setUserPurchase(up)
+            setBookReviews((prevList) => {
+                return [ 
+                    createDisplayedReview(up.review),
+                    ...prevList.filter((x) => x.ownerId !== user.id)
+                ]
+            })
+        })
+        setShowReviewForm(false)
+    }
+
+    // console.log('bookInfo', gbooksData)
+
+    if (!user || !book) {
+        return <div>loading .......</div>
+    }
 
     return (
         <div className={classes.main}>
-            {bookInfo && (
+            <Box>
                 <Typography className={classes.bookTitle} variant="h2">
-                    {bookInfo.data.volumeInfo.title}
+                    {book.title}
                 </Typography>
-            )}
-            {bookInfo && (
-                <AuthorInfo authors={bookInfo.data.volumeInfo.authors} />
-            )}
-            {bookInfo && (
+                <AuthorInfo authors={book.authors} />
                 <Paper elevation={3} className={classes.cover}>
-                    <Image
-                        aspectRatio={200 / 300}
-                        src={bookExample.volumeInfo.imageLinks.thumbnail}
-                    />
+                    <Image aspectRatio={200 / 300} src={book.thumbnail} />
                 </Paper>
+                {/* <Rating
+                    value={gbooksData.data.volumeInfo.averageRating}
+                    readOnly={true}
+                /> */}
+                {/* <Typography variant="caption">{`${gbooksData.data.volumeInfo.ratingsCount} ratings averaging ${gbooksData.data.volumeInfo.averageRating}`}</Typography> */}
+            </Box>
+            {userPurchase && userPurchase.purchased && !showReviewForm && (
+                <Button
+                    onClick={handleWriteReview}
+                    variant="contained"
+                    color="primary"
+                >
+                    {userPurchase.hasReview
+                        ? 'Update your Review'
+                        : 'Write A Review'}
+                </Button>
             )}
-            {commentDataMock.map(comment => (
-                <CommentCard key={comment.commentId} commentData={comment} />
+            {showReviewForm && (
+                <Card className={classes.reviewCard}>
+                    <CardContent>
+                        <TextField
+                            className={classes.comment}
+                            fullWidth
+                            label="Write A Review"
+                            value={reviewComment}
+                            onChange={handleReviewCommentChange}
+                        />
+                        <Rating
+                            value={reviewRating}
+                            onChange={handleReviewRatingChange}
+                        ></Rating>
+                    </CardContent>
+                    <CardActions>
+                        <Button onClick={handleSubmit} size="small">
+                            Submit!
+                        </Button>
+                    </CardActions>
+                </Card>
+            )}
+            {bookReviews.map((review) => (
+                <ReviewCard key={review.ownerId} reviewData={review} />
             ))}
         </div>
     )

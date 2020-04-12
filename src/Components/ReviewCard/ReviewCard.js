@@ -7,37 +7,45 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Rating from '../Rating'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     root: {
-        width: 275,
+        width: '100%',
         margin: theme.spacing(1),
     },
     pos: {
         marginBottom: 12,
+    },
+    commentText: {
+        textAlign: 'left',
+        margin: theme.spacing(1),
     },
 }))
 
 const handleLike = () => {
     alert('I like this!')
 }
-export default function CommentCard(props) {
+export default function ReviewCard(props) {
     const classes = useStyles()
-    const { commentData } = props
+    const { reviewData } = props
 
     return (
         <Card className={classes.root}>
             <CardContent>
                 <Typography
-                    className={classes.title}
+                    className={classes.commentText}
                     color="textSecondary"
-                    variant="h5"
+                    variant="h6"
                     gutterBottom
                 >
-                    {commentData.owner}
+                    {reviewData.owner}
                 </Typography>
-                <Rating value={commentData.rating}></Rating>
-                <Typography variant="body2" component="p">
-                    {commentData.text}
+                <Rating value={reviewData.rating}></Rating>
+                <Typography
+                    className={classes.commentText}
+                    variant="body2"
+                    component="p"
+                >
+                    {reviewData.text}
                 </Typography>
             </CardContent>
             <CardActions>

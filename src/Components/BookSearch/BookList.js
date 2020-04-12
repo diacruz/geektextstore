@@ -11,8 +11,6 @@ const BookList = props => {
         <div className="list">
             {props.books.books.map((book, i) => {
                 if (book) {
-                    console.log(book)
-                    
                     return (
                         <BookCard
                             openDetails={handleOpenDetails}
