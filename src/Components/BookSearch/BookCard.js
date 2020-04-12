@@ -21,7 +21,7 @@ const BookCard = (props) => {
         published,
         bookId,
         price,
-        dummyrating
+        rating
     } = props
 
     const classes = useStyles()
@@ -36,7 +36,7 @@ const BookCard = (props) => {
                 <h3>{author}</h3>
                 <p>{published}</p>
                 <p>Price: {price}</p>
-                <p>Rating: {dummyrating}</p>
+                <p>Rating: {rating}</p>
                 <Button
                     size="small"
                     className={classes.btn}

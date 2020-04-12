@@ -12,7 +12,6 @@ class Books extends Component {
             cartItems: [],
             searchField: '',
             sortfields: '',
-
             filterfields: '',
             order: '',
             rating: '',
@@ -45,10 +44,9 @@ class Books extends Component {
         this.setState( {bookspp: e.target.value} );
     }
 
-     sortBooks = (e) => {
-        this.state.sortfields = e.target.value
+    sortBooks = (e) => {
+        this.setState( { sortfields: e.target.value} );
     }
-
 
     filterBooks = e => {
         this.setState({filterfields: e.target.value})
