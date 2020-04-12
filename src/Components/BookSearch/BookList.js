@@ -8,12 +8,18 @@ const BookList = props => {
     const handleOpenDetails = id => () => history.push(`/book-details/${id}`)
 
     var bookspp = parseInt(props.books.bookspp);
-    
+    var rating = parseInt(props.books.rating);
+
     if (isNaN(bookspp))
     {
-        bookspp = 10;
+        bookspp = 1000;
+    }
+    if (isNaN(rating))
+    {
+        rating = 0;
     }
 
+    console.log(rating);
     var sortedBooks = props.books.books;
 
     var sorttitleasc = function (a, b) {
@@ -68,7 +74,7 @@ const BookList = props => {
         return 0;
     }
 
-    var sortpriceasc = function (a, b) {
+    var sortpricedes = function (a, b) {
         a= a.price;
         b= b.price;
         if (a < b) return 1;
@@ -76,9 +82,25 @@ const BookList = props => {
         return 0;
     }
 
-    var sortpricedes = function (a, b) {  
+    var sortpriceasc = function (a, b) {  
         a= a.price;
         b= b.price;      
+        if (a < b) return -1;
+        if (a > b) return 1;
+        return 0;
+    }
+
+    var sortratingdes = function (a, b) {
+        a= a.dummyrating;
+        b= b.dummyrating;
+        if (a < b) return 1;
+        if (a > b) return -1;
+        return 0;
+    }
+
+    var sortratingasc = function (a, b) {  
+        a= a.dummyrating;
+        b= b.dummyrating;      
         if (a < b) return -1;
         if (a > b) return 1;
         return 0;
@@ -116,6 +138,14 @@ const BookList = props => {
             sortedBooks = sortedBooks.sort(sortpriceasc)
         }
     }
+    else if (props.books.sortfields == "rating")
+    {
+        if (props.books.order == "des") {
+            sortedBooks = sortedBooks.sort(sortratingdes);
+        } else {
+            sortedBooks = sortedBooks.sort(sortratingasc)
+        }
+    }
 
     var counter = 0;
 
@@ -125,13 +155,24 @@ const BookList = props => {
                 sortedBooks.map((book, i) => {
                     if (book && counter < bookspp) 
                     {
+                        if (book.dummyrating < rating)
+                        {
+                            return undefined;
+                        }
+
                         var date = book.publishedDate + "";
                         date = date.substring(0, 10);
 
+                        var rat = "⭐";
+
+                        for (let index = 0; index < Math.floor(parseInt(book.dummyrating)) - 1; index++) {
+                            rat = rat + "⭐";                            
+                        }
+
+
+
                         if (props.books.filterfields != "" && props.books.filterfields != "null")
                         {
-                            console.log(props.books.filterfields + " " + book.categories);
-
                             if (book.categories[0] == props.books.filterfields || book.categories[1] == props.books.filterfields)
                             {
                                 counter++;
@@ -145,6 +186,7 @@ const BookList = props => {
                                         published={date}
                                         bookId={book._id}
                                         price={"$" + book.price}
+                                        rating={rat}
                                     />
                                 )
                             }
@@ -162,6 +204,7 @@ const BookList = props => {
                                     published={date}
                                     bookId={book._id}
                                     price={"$" + book.price}
+                                    rating={rat}
                                 />
                             )
                         }                   

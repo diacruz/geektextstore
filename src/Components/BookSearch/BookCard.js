@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const BookCard = props => {
-    const { openDetails, image, title, author, published, bookId, price } = props
+    const { openDetails, image, title, author, published, bookId, price, rating} = props
     const classes = useStyles()
 
     return (
@@ -20,6 +20,7 @@ const BookCard = props => {
                 <h3>{author}</h3>
                 <p>{published}</p>
                 <p>Price: {price}</p>
+                <p>Rating: {rating}</p>
                 <Button
                     size="small"
                     className={classes.btn}
