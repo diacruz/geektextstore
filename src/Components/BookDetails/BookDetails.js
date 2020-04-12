@@ -7,7 +7,7 @@ import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import ReviewCard from '../ReviewCard'
-import axios from 'axios'
+// import axios from 'axios'
 import { Typography, Paper, Box, TextField, Button } from '@material-ui/core'
 import { AppControlContext } from '../AppControlContext'
 import { ReviewSignedAs } from '../../AppControl'
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     reviewCard: {
         width: '100%',
         margin: theme.spacing(1),
+        marginBottom: 50,
     },
     comment: {
         '& .MuiTextField-root': {
@@ -70,54 +71,10 @@ const reviewsMock = [
     },
 ]
 
-const bookExample = {
-    kind: 'books#volume',
-    id: 'zVxLJvTEctcC',
-    etag: 'yCMyZspHT+Q',
-    selfLink: 'https://www.googleapis.com/books/v1/volumes/zVxLJvTEctcC',
-    volumeInfo: {
-        title: 'The Book of Mormon',
-        subtitle:
-            'An Account Written by the Hand of Mormon, Upon Plates Taken from the Plates of Nephi',
-        publisher: 'Deseret News',
-        publishedDate: '1907',
-        readingModes: { text: false, image: true },
-        pageCount: 623,
-        printedPageCount: 1300,
-        dimensions: { height: '17.00 cm' },
-        printType: 'BOOK',
-        maturityRating: 'NOT_MATURE',
-        allowAnonLogging: false,
-        contentVersion: '0.1.1.0.full.1',
-        panelizationSummary: {
-            containsEpubBubbles: false,
-            containsImageBubbles: false,
-        },
-        imageLinks: {
-            smallThumbnail:
-                'http://books.google.com/books/content?id=zVxLJvTEA4t-9X36W5enKgSMx-KKlEpkxUTOQ972FA&source=gbs_api',
-            thumbnail:
-                'http://books.google.com/books/content?id=FqSiDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
-            small:
-                'http://books.google.com/books/content?id=zVxLJvTEc…fAwfoO8wJwyVxLFDPHUHHYdDf3jTHIiTGj&source=gbs_api',
-            medium:
-                'http://books.google.com/books/content?id=zVxLJvTEc…FaGwKudwwJH__ffuTFkl7hwCMghBBaH7Cy&source=gbs_api',
-            large:
-                'http://books.google.com/books/content?id=zVxLJvTEc…E4OYlDbhKUVUNR60GOKDjAWJXOj74M0SLi&source=gbs_api',
-        },
-        language: 'en',
-        previewLink:
-            'http://books.google.com/books?id=zVxLJvTEctcC&hl=&source=gbs_api',
-        infoLink:
-            'https://play.google.com/store/books/details?id=zVxLJvTEctcC&source=gbs_api',
-        canonicalVolumeLink:
-            'https://play.google.com/store/books/details?id=zVxLJvTEctcC',
-    },
-}
 
-const getUserReview = (reviews, userId) => {
-    return reviews.find((review) => review.ownerId === userId)
-}
+// const getUserReview = (reviews, userId) => {
+//     return reviews.find((review) => review.ownerId === userId)
+// }
 
 const BookDetails = (props) => {
     const { history } = props
@@ -215,7 +172,7 @@ const BookDetails = (props) => {
         setReviewSignAs(signedAs)
     }
     const handleSubmit = () => {
-        userPurchase.setReview('', reviewComment, reviewRating)
+        userPurchase.setReview(reviewSignAs, reviewComment, reviewRating)
         userPurchase.saveChanges().then((up) => {
             console.log('userPurchase.saveChanges', up)
             setUserPurchase(up)
@@ -271,9 +228,15 @@ const BookDetails = (props) => {
                             value={reviewSignAs}
                             onChange={handleReviewSignAsChange}
                         >
-                            <MenuItem value={ReviewSignedAs.fullname}>Fullname</MenuItem>
-                            <MenuItem value={ReviewSignedAs.nickname}>Nickname</MenuItem>
-                            <MenuItem value={ReviewSignedAs.anonymous}>Anonymous</MenuItem>
+                            <MenuItem value={ReviewSignedAs.fullname}>
+                                Fullname
+                            </MenuItem>
+                            <MenuItem value={ReviewSignedAs.nickname}>
+                                Nickname
+                            </MenuItem>
+                            <MenuItem value={ReviewSignedAs.anonymous}>
+                                Anonymous
+                            </MenuItem>
                         </Select>
                         <TextField
                             className={classes.comment}
