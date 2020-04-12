@@ -45,7 +45,7 @@ export default function ReviewCard(props) {
                     variant="body2"
                     component="p"
                 >
-                    {reviewData.text}
+                    {reviewData.comment}
                 </Typography>
             </CardContent>
             <CardActions>
