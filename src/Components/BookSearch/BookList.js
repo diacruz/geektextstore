@@ -8,6 +8,7 @@ import bookReducer from '../ShoppingCart/bookReducer'
 const BookList = (props) => {
     let history = useHistory()
 
+
     const handleOpenDetails = id => () => history.push(`/book-details/${id}`)
     console.log(props)
   
@@ -16,12 +17,13 @@ const BookList = (props) => {
         console.log(book)
     } 
 
+
     var bookspp = parseInt(props.books.bookspp);
     var rating = parseInt(props.books.rating);
 
     if (isNaN(bookspp))
     {
-        bookspp = 1000;
+        bookspp = 10;
     }
     if (isNaN(rating))
     {
