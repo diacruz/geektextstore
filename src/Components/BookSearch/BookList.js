@@ -5,14 +5,14 @@ import { useHistory } from 'react-router-dom'
 const BookList = props => {
     let history = useHistory()
 
-    const handleOpenDetails = id => () => history.push(`/book-details/${id}`)
+    const handleOpenDetails = id => () => history.push(`/${id}`)
 
     var bookspp = parseInt(props.books.bookspp);
     var rating = parseInt(props.books.rating);
 
     if (isNaN(bookspp))
     {
-        bookspp = 1000;
+        bookspp = 10;
     }
     if (isNaN(rating))
     {
