@@ -9,6 +9,15 @@ const Cart = (props) => {
         localStorage.getItem('books')
     }
 
+
+    var totalprice = localStorage.getItem('books')
+
+    if (totalprice){
+        totalprice = totalprice.substring(totalprice.search("$"))
+        console.log(totalprice)
+    }
+    
+
     return (
         <div className="list">
             {localData}
@@ -22,6 +31,7 @@ const Cart = (props) => {
                 >
                     Remove from Cart
                 </Button>
+                <br />
             </div>
         </div>
     )

@@ -20,6 +20,8 @@ const BookCard = (props) => {
         author,
         published,
         bookId,
+        price,
+        dummyrating
     } = props
 
     const classes = useStyles()
@@ -34,7 +36,7 @@ const BookCard = (props) => {
                 <h3>{author}</h3>
                 <p>{published}</p>
                 <p>Price: {price}</p>
-                <p>Rating: {rating}</p>
+                <p>Rating: {dummyrating}</p>
                 <Button
                     size="small"
                     className={classes.btn}
@@ -47,7 +49,7 @@ const BookCard = (props) => {
                 <Button
                     size="small"
                     className={classes.btn}
-                    onClick={addToCart(title)}
+                    onClick={addToCart([props.title,props.author,props.price])}
                     variant="outlined"
                     color="primary"
                 >

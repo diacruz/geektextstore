@@ -9,7 +9,7 @@ const BookList = (props) => {
     let history = useHistory()
 
 
-    const handleOpenDetails = id => () => history.push(`/book-details/${id}`)
+    const handleOpenDetails = id => () => history.push(`/${id}`)
     console.log(props)
   
      const handleAddToCart = (book) => () => {
