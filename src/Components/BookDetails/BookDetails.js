@@ -11,6 +11,8 @@ import axios from 'axios'
 import { Typography, Paper, Box, TextField, Button } from '@material-ui/core'
 import { AppControlContext } from '../AppControlContext'
 import { ReviewSignedAs } from '../../AppControl'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
 
 import Image from 'material-ui-image'
 
@@ -127,7 +129,10 @@ const BookDetails = (props) => {
     const [userPurchase, setUserPurchase] = useState(null)
     const [bookReviews, setBookReviews] = useState(reviewsMock)
     const [showReviewForm, setShowReviewForm] = useState(false)
+
     const [reviewComment, setReviewComment] = useState('')
+    const [reviewSignAs, setReviewSignAs] = useState('')
+
     const [reviewRating, setReviewRating] = useState(0)
 
     useEffect(() => {
@@ -162,10 +167,7 @@ const BookDetails = (props) => {
             setUserPurchase(up)
             if (up.purchased) {
                 setBookReviews((prevList) => {
-                    return [ 
-                        createDisplayedReview(up.review),
-                        ...prevList
-                    ]
+                    return [createDisplayedReview(up.review), ...prevList]
                 })
             }
         })
@@ -194,6 +196,7 @@ const BookDetails = (props) => {
     }
 
     const handleWriteReview = () => {
+        setReviewSignAs(userPurchase.review.signedAs)
         setReviewComment(userPurchase.review.comment)
         setReviewRating(userPurchase.review.rating)
         setShowReviewForm(true)
@@ -207,15 +210,19 @@ const BookDetails = (props) => {
         const rating = event.target.value
         setReviewRating(rating)
     }
+    const handleReviewSignAsChange = (event) => {
+        const signedAs = event.target.value
+        setReviewSignAs(signedAs)
+    }
     const handleSubmit = () => {
         userPurchase.setReview('', reviewComment, reviewRating)
         userPurchase.saveChanges().then((up) => {
             console.log('userPurchase.saveChanges', up)
             setUserPurchase(up)
             setBookReviews((prevList) => {
-                return [ 
+                return [
                     createDisplayedReview(up.review),
-                    ...prevList.filter((x) => x.ownerId !== user.id)
+                    ...prevList.filter((x) => x.ownerId !== user.id),
                 ]
             })
         })
@@ -258,6 +265,16 @@ const BookDetails = (props) => {
             {showReviewForm && (
                 <Card className={classes.reviewCard}>
                     <CardContent>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={reviewSignAs}
+                            onChange={handleReviewSignAsChange}
+                        >
+                            <MenuItem value={ReviewSignedAs.fullname}>Fullname</MenuItem>
+                            <MenuItem value={ReviewSignedAs.nickname}>Nickname</MenuItem>
+                            <MenuItem value={ReviewSignedAs.anonymous}>Anonymous</MenuItem>
+                        </Select>
                         <TextField
                             className={classes.comment}
                             fullWidth
